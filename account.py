@@ -94,6 +94,9 @@ class Account:
   # Har transaction ke liye unique counter
   transaction_counter = count(100)
   
+  # interst rate - class level private attribute
+  _interest_rate = 0.05
+  
   def __init__(self, account_number, first_name, last_name, 
                timeZone=None, initial_balance=0):
     # Account holder ka pehla naam
@@ -101,8 +104,8 @@ class Account:
     # Account holder ka aakhri naam
     self.last_name = last_name
     # Account number, private attribute
-    self._account_number = account_number
-        
+    self._account_number = account_number    
+    # Account ka balance, private attribute
     self._balance = float(initial_balance)
     
     # Agar timeZone provide nahi kiya gaya to default 'UTC' set karo
@@ -138,8 +141,24 @@ class Account:
   
   @property 
   def balance(self):
+    # Account ka balance hasil karo
     return self._balance
   
+  @classmethod 
+  def get_interest_rate(cls):
+    """ Interest rate hasil karo"""
+    return getattr(cls, 'interest_rate')
+  
+  @classmethod 
+  def set_interest_rate(cls, value):
+    # validation
+    if not isinstance(value, numbers.Real):
+      raise ValueError("value must be a real number.")
+    
+    if value < 0:
+      raise ValueError("value must not be negative.")    
+    setattr(cls, "_interest_rate", value)
+                         
   @property
   def timeZone(self):
     """ Time zone hasil karo"""
