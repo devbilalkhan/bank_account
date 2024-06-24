@@ -94,7 +94,8 @@ class Account:
   # Har transaction ke liye unique counter
   transaction_counter = count(100)
   
-  def __init__(self, account_number, first_name, last_name, timeZone=None):
+  def __init__(self, account_number, first_name, last_name, 
+               timeZone=None, initial_balance=0):
     # Account holder ka pehla naam
     self.first_name = first_name
     # Account holder ka aakhri naam
@@ -102,6 +103,8 @@ class Account:
     # Account number, private attribute
     self._account_number = account_number
         
+    self._balance = float(initial_balance)
+    
     # Agar timeZone provide nahi kiya gaya to default 'UTC' set karo
     if timeZone == None:     
       timeZone = TimeZone('UTC', 0, 0)
@@ -132,7 +135,11 @@ class Account:
   def last_name(self, value):         
     # Aakhri naam set karo
     self.validate_and_set_name('_last_name', value, "Aakhri Naam")
-      
+  
+  @property 
+  def balance(self):
+    return self._balance
+  
   @property
   def timeZone(self):
     """ Time zone hasil karo"""
