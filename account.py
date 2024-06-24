@@ -92,10 +92,18 @@ class Account:
   
   # Unique counter - class level attribute
   # Har transaction ke liye unique counter
-  transaction_counter = count(100)
-  
+  transaction_counter = count(100)  
   # interst rate - class level private attribute
   _interest_rate = 0.05
+  
+  # TODO: Iss aik behtar method say implement kernge jise ENUM kaha jata hai. 
+  # transaction codes 
+  _transaction_codes = {
+    'deposit': 'D',
+    'withdraw': 'W',
+    'interest': 'I',
+    'rejected': 'X'
+  }
   
   def __init__(self, account_number, first_name, last_name, 
                timeZone=None, initial_balance=0):
