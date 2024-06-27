@@ -165,8 +165,13 @@ class Account:
     
     if value < 0:
       raise ValueError("value must not be negative.")    
-    setattr(cls, "_interest_rate", value)
-                         
+    setattr(cls, "_interest_rate", value)  
+                          
+  def generate_confirmation_code(self, transaction_code):
+    """Gernerate confirmation code"""
+    dt_str = datetime.utcnow().strftime('%Y%m%d%H%M%S')
+    return f'{transaction_code}-{self.account_number}-{dt_str}-{next(transaction_code)}'
+
   @property
   def timeZone(self):
     """ Time zone hasil karo"""
@@ -197,3 +202,4 @@ class Account:
   def next(self):
     next_transaction_id = next(Account.transaction_counter)
     return next_transaction_id
+  
